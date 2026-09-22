@@ -1,7 +1,9 @@
 from config import get_client
 from tools import tools_schema, get_weather, calculate
-from schemas import WeatherArgs,CalculateArgs
+from schemas import WeatherArgs,CalculateArgs,KnowledgeArgs
+from rag_engine import search_knowledge_base
 import json
+
 
 class ChatAgent:
     def __init__(self, system_prompt="你是一个专业的AI助手。"):
@@ -64,6 +66,12 @@ class ChatAgent:
                             tool_result = calculate(validated_args.expression)
                         except Exception as e:
                             tool_result = f"参数格式错误：{e},请按照正确的格式重新调用工具。"
+                    elif function_name == "search_knowledge_base":
+                        try:
+                            validated_args = KnowledgeArgs(**function_args) #这里建议自己补充，参照前面的Pydantic模式
+                            tool_result =  search_knowledge_base(validated_args.query)
+                        except Exception as e:
+                            tool_result = f"检索失败：{e}，请按正确的格式重新调用工具"                   
                     else:
                         tool_result = f"未找到工具：{function_name}"
                     

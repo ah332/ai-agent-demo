@@ -1,3 +1,5 @@
+from rag_engine import search_knowledge_base
+
 def get_weather(city:str) -> str:
     """模拟获取天气"""
     # 实际项目中，这里会调用真实的天气API
@@ -43,6 +45,21 @@ tools_schema = [
                     "expression":{"type":"string","description":"数学表达式，例如：1+1、100*5"}
                 },
                 "required":["expression"]
+            }
+        }
+    },
+
+ {
+        "type":"function",
+        "function":{
+            "name":"search_knowledge_base",
+            "description":"当需要回答关于董佶雷的个人信息、毕业论文、项目经历等问题时，使用此工具检索知识库。",
+            "parameters":{
+                "type":"object",
+                "properties": {
+                    "query":{"type":"string","description":"要检索的查询语句"}
+                },
+                "required":["query"]
             }
         }
     }

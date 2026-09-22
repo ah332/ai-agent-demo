@@ -5,3 +5,6 @@ class WeatherArgs(BaseModel):
 
 class CalculateArgs(BaseModel):
     expression: str = Field(description="数学表达式，例如：1+1、100*5")
+
+class KnowledgeArgs(BaseModel):
+    query: str = Field(description="要检索知识库的查询语句")
