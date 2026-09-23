@@ -57,15 +57,34 @@ def add_to_knowledge_base(file_path):
     print("[系统日志]:知识库构建完成！")
 
 def search_knowledge_base(query):
-    """检索知识库"""
+    """检索知识库（加入相似度阈值过滤）"""
     query_embedding = get_embedding(query)
     results = collection.query(
         query_embeddings=[query_embedding],
-        n_results=2 #返回最相关的2个片段
+        n_results=2, #返回最相关的2个片段
+        include=["documents","distances"]#明确要求返回距离
      )
     #提取检索到文本
     retrieved_docs = results["documents"][0]
-    return "\n".join(retrieved_docs)
+    distances = results["distances"][0]
+
+
+    # 设定一个距离阈值（Chroma默认使用L2距离，越小越相似。具体阈值需要根据实际测试调整）
+    # 这里假设距离大于 1.5 就认为不相关
+    valid_docs = []
+    for doc,dist in zip(retrieved_docs,distances):
+        if dist<1.5: #阈值可以根据实际情况动态调整
+            valid_docs.append(doc)
+        else:
+            print(f"[系统日志]:过滤掉低相关片段，距离={dist:.2f}")
+
+    if not valid_docs:
+        return "未在知识库中找到相关信息。" 
+
+
+    return "\n".join(valid_docs)
+
+
 
  #测试一下
 if __name__=="__main__":
@@ -73,7 +92,7 @@ if __name__=="__main__":
     add_to_knowledge_base("knowledge.txt")
 
     #模拟提问
-    question = "董佶雷的毕业论文研究什么？"
+    question = "董ah的毕业论文研究什么？"
     context = search_knowledge_base(question)
     print(f"\n[检索结果]：\n{context}")
 

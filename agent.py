@@ -6,7 +6,7 @@ import json
 
 
 class ChatAgent:
-    def __init__(self, system_prompt="你是一个专业的AI助手。"):
+    def __init__(self, system_prompt="你是一个专业的AI助手。请严格基于工具返回的检索结果回答问题。如果检索结果中不包含答案，请直接回答'知识库中未找到相关信息'，绝对不要自己编造答案。"):
         self.client = get_client()
         self.messages = [{"role": "system", "content": system_prompt}]
         print(f"[系统提示]: Agent 初始化完成，角色设定为：{system_prompt}")

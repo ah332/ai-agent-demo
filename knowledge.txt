@@ -1,2 +1,4 @@
-董ah是智能工程大学电子信息专业的学生。他的毕业论文方向是pcb微笑缺陷检测，他在研究过程中提出了YOLO-EM算法，在PCB Surface Defect数据集上mAP@0.5达到97.9%。
-目前他正在学习AI Agent开发，最喜欢的编程语言是python，目标是在上海或者浙江省内找一份AI Agent开发实习。
+董ah是智能工程大学电子信息专业的学生，研究方向是PCB微小缺陷检测。他在研究过程中提出了YOLO-EM算法，在PCB Surface Defect数据集上mAP@0.5达到97.9%。
+他掌握Python、C语言，熟悉PyTorch、YOLO系列目标检测算法，了解RAG、Function Calling和Agent开发。
+目前他正在学习AI Agent开发，最喜欢的编程语言是Python，目标是在上海或浙江省内找一份AI Agent开发实习，期望实习时长6个月以上。
+他具备较强的学习能力和工程实践能力，曾独立完成从零到一的Agent项目，并开源在GitHub上。
