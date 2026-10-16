@@ -1,0 +1,38 @@
+test_ask_returns_timeout_to_browser (test_errors.ErrorTests.test_ask_returns_timeout_to_browser) ... ok
+test_authentication (test_errors.ErrorTests.test_authentication) ... ok
+test_connection (test_errors.ErrorTests.test_connection) ... ok
+test_invalid_input (test_errors.ErrorTests.test_invalid_input) ... ok
+test_other_api_error (test_errors.ErrorTests.test_other_api_error) ... ok
+test_permission (test_errors.ErrorTests.test_permission) ... ok
+test_rate_limit (test_errors.ErrorTests.test_rate_limit) ... ok
+test_timeout (test_errors.ErrorTests.test_timeout) ... ok
+test_unexpected_error_is_logged_without_exposing_details (test_errors.ErrorTests.test_unexpected_error_is_logged_without_exposing_details) ... ok
+test_upstream_bad_request (test_errors.ErrorTests.test_upstream_bad_request) ... ok
+test_api_upload_ask_validation_and_home (test_papers.PaperTests.test_api_upload_ask_validation_and_home) ... ok
+test_bad_pdf_and_scanned_pdf (test_papers.PaperTests.test_bad_pdf_and_scanned_pdf) ... ok
+test_bad_tool_json_is_backfilled_then_recovered (test_papers.PaperTests.test_bad_tool_json_is_backfilled_then_recovered) ... ok
+test_context_missing_neighbor_and_unreliable_overlap_preserve_anchor (test_papers.PaperTests.test_context_missing_neighbor_and_unreliable_overlap_preserve_anchor) ... ok
+test_context_rejects_neighbor_with_wrong_provenance (test_papers.PaperTests.test_context_rejects_neighbor_with_wrong_provenance) ... ok
+test_context_three_neighbors_preserve_repeated_text_and_scope (test_papers.PaperTests.test_context_three_neighbors_preserve_repeated_text_and_scope) ... ok
+test_embedding_failure_does_not_write_partial_paper (test_papers.PaperTests.test_embedding_failure_does_not_write_partial_paper) ... ok
+test_expanded_context_reaches_model_and_displayed_source (test_papers.PaperTests.test_expanded_context_reaches_model_and_displayed_source) ... ok
+test_iteration_budget (test_papers.PaperTests.test_iteration_budget) ... ok
+test_loop_backfills_evidence_and_returns_real_source (test_papers.PaperTests.test_loop_backfills_evidence_and_returns_real_source) ... ok
+test_multiple_papers_and_duplicate_no_embedding (test_papers.PaperTests.test_multiple_papers_and_duplicate_no_embedding) ... ok
+test_no_evidence_answer (test_papers.PaperTests.test_no_evidence_answer) ... ok
+test_pdf_pages_and_source (test_papers.PaperTests.test_pdf_pages_and_source) ... ok
+test_unknown_and_missing_citations_are_rejected (test_papers.PaperTests.test_unknown_and_missing_citations_are_rejected) ... ok
+test_whitespace_citations_are_normalized_without_inventing_sources (test_papers.PaperTests.test_whitespace_citations_are_normalized_without_inventing_sources) ... ok
+test_authentication_failure_is_not_retried (test_sdk_retries.SDKRetryTests.test_authentication_failure_is_not_retried) ... ok
+test_bad_request_is_not_retried (test_sdk_retries.SDKRetryTests.test_bad_request_is_not_retried) ... ok
+test_connection_failure_stops_after_two_attempts (test_sdk_retries.SDKRetryTests.test_connection_failure_stops_after_two_attempts) ... ok
+test_permission_failure_is_not_retried (test_sdk_retries.SDKRetryTests.test_permission_failure_is_not_retried) ... ok
+test_persistent_timeout_stops_after_two_attempts (test_sdk_retries.SDKRetryTests.test_persistent_timeout_stops_after_two_attempts) ... ok
+test_rate_limit_stops_after_two_attempts (test_sdk_retries.SDKRetryTests.test_rate_limit_stops_after_two_attempts) ... ok
+test_server_error_stops_after_two_attempts (test_sdk_retries.SDKRetryTests.test_server_error_stops_after_two_attempts) ... ok
+test_timeout_then_success_makes_two_attempts (test_sdk_retries.SDKRetryTests.test_timeout_then_success_makes_two_attempts) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 2.324s
+
+OK

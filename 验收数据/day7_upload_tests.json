@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-16",
+  "tests_run": 33,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "network": "chat and embedding simulated; SDK transport mocked",
+  "purpose": "pre-upload regression verification"
+}

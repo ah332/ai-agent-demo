@@ -79,7 +79,7 @@ def search_knowledge_base(query):
             print(f"[系统日志]:过滤掉低相关片段，距离={dist:.2f}")
 
     if not valid_docs:
-        return "未在知识库中找到相关信息。" 
+        return "未在知识库中找到相关信息。"
 
 
     return "\n".join(valid_docs)
@@ -92,7 +92,7 @@ if __name__=="__main__":
     add_to_knowledge_base("knowledge.txt")
 
     #模拟提问
-    question = "董ah的毕业论文研究什么？"
+    question = "ResearchPilot 项目支持什么功能？"
     context = search_knowledge_base(question)
     print(f"\n[检索结果]：\n{context}")
 

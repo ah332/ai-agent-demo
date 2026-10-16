@@ -14,7 +14,7 @@ class ChatAgent:
     def chat(self, user_input):
         """接收用户输入，返回AI回复，并处理多步工具调用"""
         self.messages.append({"role": "user", "content": user_input})
-        
+
         # 设置最大步数，防止无限循环
         max_steps = 5
         step = 0
@@ -48,7 +48,7 @@ class ChatAgent:
                 for tool_call in tool_calls:
                     function_name = tool_call.function.name
                     function_args = json.loads(tool_call.function.arguments)#把模型返回的工具参数 JSON 字符串，转换成 Python 能直接处理的数据结构
-                    
+
                     print(f"[系统日志]: 模型决定调用工具：{function_name}，参数：{function_args}")
 
                     # 执行本地函数
@@ -71,10 +71,10 @@ class ChatAgent:
                             validated_args = KnowledgeArgs(**function_args) #这里建议自己补充，参照前面的Pydantic模式
                             tool_result =  search_knowledge_base(validated_args.query)
                         except Exception as e:
-                            tool_result = f"检索失败：{e}，请按正确的格式重新调用工具"                   
+                            tool_result = f"检索失败：{e}，请按正确的格式重新调用工具"
                     else:
                         tool_result = f"未找到工具：{function_name}"
-                    
+
                     print(f"[系统日志]: 工具执行结果：{tool_result}")
 
                     # 把工具执行结果加入历史消息

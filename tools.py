@@ -53,7 +53,7 @@ tools_schema = [
         "type":"function",
         "function":{
             "name":"search_knowledge_base",
-            "description":"当需要回答关于董佶雷的个人信息、毕业论文、项目经历等问题时，使用此工具检索知识库。",
+            "description":"需要依据本地演示知识库回答问题时，使用此工具检索知识库。",
             "parameters":{
                 "type":"object",
                 "properties": {

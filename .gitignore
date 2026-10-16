@@ -1,4 +1,29 @@
 .venv/
 .env
+.env.*
+!.env.example
 __pycache__/
 chroma_db/
+paper_chroma_db/
+*.pyc
+
+# Local learning records, personal data, generated documents and raw paper excerpts.
+knowledge.txt
+学习日志.md
+运行与验收记录.md
+历史资料/
+artifacts/
+tmp/
+output/
+求职材料/
+*.docx
+*.pdf
+!examples/demo.pdf
+!examples/day4_invalid.pdf
+
+# Publish summaries, not full extracted paper text or raw model responses.
+验收数据/*
+!验收数据/day6_tests.json
+!验收数据/day6_tests.txt
+!验收数据/day7_startup.json
+!验收数据/day7_upload_tests.json

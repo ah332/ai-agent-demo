@@ -1,0 +1,3 @@
+# Keep PDF test fixtures byte-identical across Windows and other platforms.
+*.pdf binary
+*.docx binary

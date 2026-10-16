@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ResearchPilot · 论文阅读助手</title>
+<style>
+body{font:16px/1.7 system-ui,sans-serif;background:#f4f6fa;color:#203047;margin:0}
+main{max-width:850px;margin:36px auto;padding:0 20px}h1{margin:0}small{color:#65758c}
+section{background:white;padding:24px;border:1px solid #dce2eb;border-radius:14px;margin:20px 0}
+label{display:block;margin:12px 0 6px;font-weight:600}button,select,textarea{font:inherit;border-radius:8px}
+button{padding:9px 18px;border:0;background:#245bd8;color:white;cursor:pointer}button:disabled{opacity:.55;cursor:wait}
+textarea,select{box-sizing:border-box;width:100%;padding:10px;border:1px solid #c6d0df}textarea{height:110px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}#notice{min-height:24px;color:#536681}
+details{border-top:1px solid #e4e8ef;padding:12px 0}summary{cursor:pointer;font-weight:600}
+</style>
+<main>
+<h1>ResearchPilot</h1><small>论文阅读助手 · 第一版：一篇论文，回答有出处</small>
+<section><h2>1. 导入论文</h2>
+<p>选择可复制文字的 PDF，大小不超过 20 MB。导入时会调用千问 Embedding API。</p>
+<input id="file" type="file" accept=".pdf"><button id="upload">导入</button>
+<div id="notice" role="status"></div></section>
+<section><h2>2. 选择论文并提问</h2>
+<label for="paper">当前论文</label><select id="paper"></select>
+<label for="question">你的问题</label><textarea id="question" maxlength="2000" placeholder="例如：这篇论文提出的方法解决了什么问题？请给出原文出处。"></textarea>
+<button id="ask">检索并回答</button><small> 回答中的 [S1] 对应下方原文证据。</small>
+</section>
+<section id="result" hidden><h2>回答</h2><pre id="reply"></pre>
+<h3>引用的原文</h3><div id="sources"></div>
+<details><summary>查看工具调用过程</summary><pre id="trace"></pre></details>
+<small>页码是 PDF 阅读器从 1 开始的页序。引用可追溯不等于理解一定正确，请对照原文核验。</small>
+</section></main>
+<script>
+const $=id=>document.getElementById(id);
+async function request(url,options){const r=await fetch(url,options);const data=await r.json();if(!r.ok)throw Error(typeof data.detail==='string'?data.detail:JSON.stringify(data.detail));return data;}
+async function refresh(selected){const data=await request('/papers');$('paper').replaceChildren();for(const p of data.papers){const o=document.createElement('option');o.value=p.paper_id;o.textContent=`${p.filename} · ${p.pages} 页`;o.selected=p.paper_id===selected;$('paper').append(o);}}
+function busy(value){$('upload').disabled=value;$('ask').disabled=value;}
+$('upload').onclick=async()=>{const file=$('file').files[0];if(!file){$('notice').textContent='请先选择 PDF。';return;}busy(true);$('notice').textContent='正在读取 PDF 并生成向量，请稍候……';try{const form=new FormData();form.append('file',file);const p=await request('/papers',{method:'POST',body:form});await refresh(p.paper_id);$('notice').textContent=`${p.duplicate?'已经导入，未重复计费':'导入完成'}：${p.filename}，${p.chunks} 个片段。`+(p.empty_pages.length?` 第 ${p.empty_pages.join('、')} 页没有提取到文字，已跳过。`:'');}catch(e){$('notice').textContent=e.message;}finally{busy(false);}};
+$('ask').onclick=async()=>{const question=$('question').value.trim(),paper_id=$('paper').value;if(!question||!paper_id){$('notice').textContent='请先导入并选择论文，再填写问题。';return;}busy(true);$('result').hidden=false;$('reply').textContent='正在检索论文并回答……';$('sources').replaceChildren();$('trace').textContent='';try{const data=await request('/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,paper_id})});$('reply').textContent=data.reply;for(const s of data.sources){const d=document.createElement('details');d.open=true;const title=document.createElement('summary');title.textContent=`[${s.id}] ${s.filename} · 第 ${s.page} 页`;const quote=document.createElement('pre');quote.textContent=s.quote;d.append(title,quote);$('sources').append(d);}$('trace').textContent=JSON.stringify(data.trace,null,2);$('notice').textContent=`本次结果：${data.status}`;}catch(e){$('reply').textContent=e.message;}finally{busy(false);}};
+refresh().catch(e=>$('notice').textContent=e.message);
+</script>
+</html>

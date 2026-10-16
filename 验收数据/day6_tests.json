@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-15",
+  "tests_run": 33,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "network": "mocked SDK transport; chat and embedding responses are simulated"
+}
